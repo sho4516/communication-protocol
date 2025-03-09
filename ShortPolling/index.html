@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="date"></div>
+    <script>
+      const fetchData = async () => {
+        try {
+          const result = await fetch("http://localhost:4000/fetchData");
+          if (!result.ok) throw new Error("Server is down");
+
+          const data = await result.json();
+          document.getElementById("date").innerHTML = `<h1>${data.date}</h1>`;
+        } catch (error) {
+          console.log("❌ Fetch failed. Stopping interval.");
+          clearInterval(interval);
+        }
+      };
+
+      fetchData();
+      const interval = setInterval(fetchData, 1000);
+    </script>
+  </body>
+</html>
