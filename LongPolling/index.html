@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="body"></div>
+    <script>
+      let lastData = "";
+      const fetchData = async (lastData) => {
+        const result = await fetch(
+          `http://localhost:4000/getData?lastData=${lastData}`
+        );
+        const data = await result.json();
+        document.getElementById("body").innerHTML = `<h1>${data}</h1>`;
+        lastData = data;
+        fetchData(lastData);
+      };
+      fetchData();
+    </script>
+  </body>
+</html>
